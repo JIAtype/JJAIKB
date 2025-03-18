@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>左侧标签栏示例</title>
+  <style>
+
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu-item {
+  margin-bottom: 20px;
+}
+
+.menu-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.add-submenu {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.add-submenu:hover {
+  background-color: #c0392b;
+}
+
+.submenu {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+.submenu-item {
+  margin-top: 10px;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <ul>
+        <li class="menu-item">
+          <span class="menu-title">标签1</span>
+          <button class="add-submenu">+</button>
+          <ul class="submenu">
+            <!-- 子标签项将通过 JavaScript 动态添加 -->
+          </ul>
+        </li>
+        <li class="menu-item">
+          <span class="menu-title">标签2</span>
+          <button class="add-submenu">+</button>
+          <ul class="submenu"></ul>
+        </li>
+        <!-- 更多标签项 -->
+      </ul>
+    </div>
+    <div class="content">
+      <h1>欢迎来到知识整理网站</h1>
+      <p>在左侧标签栏中添加子标签以组织内容。</p>
+    </div>
+  </div>
+  <script>
+
+document.addEventListener('DOMContentLoaded', function () {
+  const addSubmenuButtons = document.querySelectorAll('.add-submenu');
+
+  addSubmenuButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      const submenu = this.nextElementSibling;
+      const newSubmenuItem = document.createElement('li');
+      newSubmenuItem.classList.add('submenu-item');
+      newSubmenuItem.innerHTML = `
+        <input type="text" placeholder="输入子标签名称" />
+        <button class="save-submenu">保存</button>
+      `;
+      submenu.appendChild(newSubmenuItem);
+
+      const saveButton = newSubmenuItem.querySelector('.save-submenu');
+      saveButton.addEventListener('click', function () {
+        const input = newSubmenuItem.querySelector('input');
+        if (input.value.trim() !== '') {
+          newSubmenuItem.innerHTML = `<span>${input.value}</span>`;
+        }
+      });
+    });
+  });
+});
+
+  </script>
+</body>
+</html>
